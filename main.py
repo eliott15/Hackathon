@@ -1,6 +1,7 @@
 from foogoo import *
 from date_recognizer import *
 from datetime import datetime
+import ast
 
 
 def get_ingredients(ingredients_df):
@@ -55,8 +56,9 @@ def combine_recipes(recipe_list):
     df = pd.read_csv("static/data/recipes.csv")
     missing_ingredients = []
     missing_price = []
+
     for recipe in recipe_list:
-        ings = df[df['recipe_name'] == recipe]['missing_prices']
+        ings = ast.literal_eval(df[df['recipe_name'] == recipe]['missing_prices'])
         for ing in ings:
             missing_ingredients.append(ing[0])
             missing_price.append(ing[1])
