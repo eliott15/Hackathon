@@ -12,6 +12,11 @@ foogoo = sp.API("18b4d68fbd11492f8ac5fd4c771d2b44")
 
 
 def preprocess(text):
+    """
+    Preprocess text in different way to use in the get_ingredient_receipt function to amplify recognition
+    input : text
+    output : preprocessed text
+    """
     text = re.sub(r'[0-9]', '', text)
     text = re.sub(r'[\@\.\!\?\:\,\"\/\\\#\%\[\]\^\_\&\'\(\)\+\-\|\~\;\=\^\*]', '', text)
     tokens_text = nltk.word_tokenize(text)
@@ -23,6 +28,11 @@ def preprocess(text):
 
 
 def get_ingredient_receipt(img_path):
+    """
+    Recognize products in a shopping receipt
+    input : image path
+    return : a list of product
+    """
     image_file = Image.open(img_path)
     tess = pytesseract.image_to_string(image_file)
     new_list = []
