@@ -41,7 +41,7 @@ def propose_recipes(ingredients_df):
     ingredients = optimize_fridge(ingredients_info)
     my_recipes = select_recipe(ingredients, filters=[diet])
     df = pd.DataFrame.from_dict(my_recipes)
-    df.to_csv('recipes.csv')
+    df.to_csv('static/data/recipes.csv')
     return df
 
 
