@@ -47,14 +47,14 @@ def propose_recipes(ingredients_df):
 
 def combine_recipes(recipe_list):
     """Takes a list of recipes and the dataframe of recipes as inputs.
-    Returns the list of missing ingredients, and the total price of them.
+    Returns the list of missing ingredients, and the corresponding prices.
     """
     df = pd.read_csv("static/data/recipes.csv")
     missing_ingredients = []
-    total_price = 0
+    missing_price = []
     for recipe in recipe_list:
-        ings = df[df['recipe_name'] == recipe]['missed_ing']
+        ings = df[df['recipe_name'] == recipe]['missed_prices']
         for ing in ings:
-            missing_ingredients.append(ing)
-        total_price += df[df['recipe_name'] == recipe]['total_missing']
-    return list(set(missing_ingredients)), total_price
+            missing_ingredients.append(ing[0])
+            missing_price.append(ing[1])
+    return  missing_ingredients, missing_price
