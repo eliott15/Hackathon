@@ -42,11 +42,19 @@ def get_date_product_img(image_file):
             if 2018 < date.year < 2025:
                 dates.append(date)
         if len(dates) != 0:
-            return max(dates).strftime("%A %d. %B %Y")
+            return max(dates)
         else:
             return None
     else:
-        return b[0].strftime("%A %d. %B %Y")
+        return b[0]
+
+
+def get_best(dates):
+    best_dates = []
+    for date in dates:
+        if date != date.today():
+            best_dates.append(date)
+    return max(best_dates)
 
 
 def find_date(img_path):
@@ -73,10 +81,8 @@ def find_date(img_path):
     if get_date_product_img(image_file) is not None:
         dates.append(get_date_product_img(image_file))
     if len(list(set(dates))) == 1:
-        return list(set(dates))[0]
+        return list(set(dates))[0].strftime("%d/%m/%Y")
+    if len(list(set(dates))) == 0:
+        return None
     else:
-        return list(set(dates))
-
-
-#for file in os.listdir("phototest"):
-#    print(file, find_date("phototest/" + file))
+        return get_best(list(set(dates))).strftime("%d/%m/%Y")
