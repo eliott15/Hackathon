@@ -4,9 +4,10 @@ from collections import defaultdict
 
 ID = 0
 MISSING = 4
+PRICE = 5
 VEGETARIAN, VEGAN, GLUTEN, DAIRY = 2, 3, 4, 5
-FILTERS_DICT = {'vegetarian':VEGETARIAN,'vegan':VEGAN, 'gluten': GLUTEN, 'dairy':DAIRY}
-DATA = ['id','recipe_name','recipe_image','nb_missed_ing','missed_ing','missing_prices',
+FILTERS_DICT = {'vegetarian': VEGETARIAN, 'vegan': VEGAN, 'gluten_free': GLUTEN, 'dairy_free': DAIRY}
+DATA = ['id', 'recipe_name', 'recipe_image', 'nb_missed_ing', 'missed_ing', 'missing_prices',
         'total_missing', 'instructions', 'price_per_serving', 'vegetarian',
         'vegan', 'gluten_free', 'dairy_free']
 
@@ -35,12 +36,12 @@ def get_missing_ing_price(missed_ing):
     """
     response = foogoo.parse_ingredients("\n".join(missed_ing))
     data = response.json()
-    price_ing = [data[i]["estimatedCost"]["value"]/100 for i in range(len(data))]
-    name_ing = [data[i]["name"]for i in range(len(data))]
-    return(list(zip(name_ing,price_ing)),sum(price_ing))
+    price_ing = [data[i]["estimatedCost"]["value"] / 100 for i in range(len(data))]
+    name_ing = [data[i]["name"] for i in range(len(data))]
+    return (list(zip(name_ing, price_ing)), sum(price_ing))
 
 
-def get_info_recipe(recipe_id,serving):
+def get_info_recipe(recipe_id, serving):
     """Takes a recipe id and the number of serving as inputs.
     Returns:
         - The instruction of the recipe
@@ -50,18 +51,19 @@ def get_info_recipe(recipe_id,serving):
         - If the recipe is gluten free
         - If the recipe is dairy free
     """
-    response = foogoo.get_recipe_information_bulk(recipe_id,serving)
+    response = foogoo.get_recipe_information_bulk(recipe_id, serving)
     data = response.json()
     d = data[0]
     instructions = d['instructions']
     price_per_serving = d['pricePerServing']
     vegetarian, vegan, gluten, dairy = d['vegetarian'], d['vegan'], d['glutenFree'], d['dairyFree']
-    return instructions, price_per_serving/100, vegetarian, vegan, gluten, dairy
+    return instructions, price_per_serving / 100, vegetarian, vegan, gluten, dairy
 
 
 def select_recipe(ingredients, serving=2, filters=None):
     """Takes a list of ingredients, number of people to serve
-    and a list of filters (among vegan, vegetarian, gluten free, dairy free).
+    and a list of filters (among vegan, vegetarian, gluten free, dairy free)
+    --> respectively precise 'vegan', 'vegetarian', 'gluten', 'dairy' for each of them.
     Returns a list of recipes corresponding to the given filters.
     """
     data_dict = defaultdict(list)
@@ -102,6 +104,7 @@ def main():
     df.to_csv('recipes.csv')
     arr = ingredient_autocomplition('emon')
     print(arr)
+
 
 if __name__ == '__main__':
     main()

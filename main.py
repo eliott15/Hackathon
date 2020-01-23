@@ -2,6 +2,7 @@ from foogoo import *
 from date_recognizer import *
 from datetime import datetime
 
+
 def get_ingredients(ingredients_df):
     """Takes as input a dataframe of ingredients with their information (name, expiry date, picture, diet).
     Returns a list of ingredients names and expiry dates.
@@ -44,3 +45,15 @@ def propose_recipes(ingredients_df):
     return df
 
 
+def combine_recipes(recipe_list, df):
+    """Takes a list of recipes and the dataframe of recipes as inputs.
+    Returns the list of missing ingredients, and the total price of them.
+    """
+    missing_ingredients = []
+    total_price = 0
+    for recipe in recipe_list:
+        ings = df[df['recipe_name'] == recipe]['missed_ing']
+        for ing in ings:
+            missing_ingredients.append(ing)
+        total_price += df[df['recipe_name'] == recipe]['total_missing']
+    return list(set(missing_ingredients)), total_price
