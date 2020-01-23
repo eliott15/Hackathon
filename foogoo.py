@@ -11,8 +11,9 @@ DATA = ['id', 'recipe_name', 'recipe_image', 'nb_missed_ing', 'missed_ing', 'mis
         'total_missing', 'instructions', 'price_per_serving', 'vegetarian',
         'vegan', 'gluten_free', 'dairy_free']
 
-foogoo = sp.API("18b4d68fbd11492f8ac5fd4c771d2b44")
-
+#foogoo = sp.API("18b4d68fbd11492f8ac5fd4c771d2b44")
+KEY="2ffbb1fbe2574e1582c693a246614403"
+foogoo = sp.API(KEY)
 
 def get_recipe(list_ing):
     """Takes a list of ingredients as inputs.
