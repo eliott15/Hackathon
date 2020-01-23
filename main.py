@@ -45,10 +45,11 @@ def propose_recipes(ingredients_df):
     return df
 
 
-def combine_recipes(recipe_list, df):
+def combine_recipes(recipe_list):
     """Takes a list of recipes and the dataframe of recipes as inputs.
     Returns the list of missing ingredients, and the total price of them.
     """
+    df = pd.read_csv("static/data/recipes.csv")
     missing_ingredients = []
     total_price = 0
     for recipe in recipe_list:
