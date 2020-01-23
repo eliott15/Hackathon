@@ -27,6 +27,14 @@ def get_recipe_ingredients(dictionary):
     return ingredients
 
 
+def get_price(ingredient):
+    return''
+
+
+def get_nutritional_info(ingredient):
+    return''
+
+
 def get_recipes(ingredients, recipes_list):
     """Takes a list of available ingredients and list of recipes as inputs.
     Each recipe msut be in the format (key (string), ingredients (list)).
