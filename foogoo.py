@@ -91,12 +91,17 @@ def select_recipe(ingredients, serving=2, filters=None):
     return data_dict
 
 
+def ingredient_autocomplition(text):
+    return [data['name'] for data in foogoo.autocomplete_ingredient_search(text).json()]
+
+
 def main():
     my_ingredients = ['tomato', 'pasta']
     my_recipes = select_recipe(my_ingredients)
     df = pd.DataFrame.from_dict(my_recipes)
     df.to_csv('recipes.csv')
-
+    arr = ingredient_autocomplition('emon')
+    print(arr)
 
 if __name__ == '__main__':
     main()
