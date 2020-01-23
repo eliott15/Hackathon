@@ -58,8 +58,12 @@ def combine_recipes(recipe_list):
     missing_price = []
 
     for recipe in recipe_list:
-        ings = ast.literal_eval(df[df['recipe_name'] == recipe]['missing_prices'])
+        tmp_ings = df[df['recipe_name'] == recipe]['missing_prices'].values[0]
+        ings = ast.literal_eval(tmp_ings.replace("(", "[").replace(")", "]"))
         for ing in ings:
             missing_ingredients.append(ing[0])
             missing_price.append(ing[1])
     return missing_ingredients, missing_price
+
+
+print(combine_recipes(['Real Men Cook: Baked Caprese Tomatoes']))
