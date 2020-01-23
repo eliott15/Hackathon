@@ -6,7 +6,7 @@ ID = 0
 MISSING = 4
 PRICE = 5
 VEGETARIAN, VEGAN, GLUTEN, DAIRY = 2, 3, 4, 5
-FILTERS_DICT = {'vegetarian': VEGETARIAN, 'vegan': VEGAN, 'gluten_free': GLUTEN, 'dairy_free': DAIRY}
+FILTERS_DICT = {'vegetarian': VEGETARIAN, 'vegan': VEGAN, 'gluten_free': GLUTEN, 'dairy_free': DAIRY, 'None': None}
 DATA = ['id', 'recipe_name', 'recipe_image', 'nb_missed_ing', 'missed_ing', 'missing_prices',
         'total_missing', 'instructions', 'price_per_serving', 'vegetarian',
         'vegan', 'gluten_free', 'dairy_free']

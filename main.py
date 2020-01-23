@@ -39,7 +39,10 @@ def propose_recipes(ingredients_df):
     diet = ingredients_df.iloc[0, -1]
     ingredients_info = get_ingredients(ingredients_df)
     ingredients = optimize_fridge(ingredients_info)
-    my_recipes = select_recipe(ingredients, filters=[diet])
+    if diet == 'None':
+        my_recipes = select_recipe(ingredients)
+    else:
+        my_recipes = select_recipe(ingredients, filters=[diet])
     df = pd.DataFrame.from_dict(my_recipes)
     df.to_csv('static/data/recipes.csv')
     return df
@@ -53,8 +56,8 @@ def combine_recipes(recipe_list):
     missing_ingredients = []
     missing_price = []
     for recipe in recipe_list:
-        ings = df[df['recipe_name'] == recipe]['missed_prices']
+        ings = df[df['recipe_name'] == recipe]['missing_prices']
         for ing in ings:
             missing_ingredients.append(ing[0])
             missing_price.append(ing[1])
-    return  missing_ingredients, missing_price
+    return missing_ingredients, missing_price
